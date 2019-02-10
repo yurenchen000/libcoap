@@ -599,6 +599,14 @@ coap_socket_connect_udp(coap_socket_t *sock,
     return 1;
   }
 
+  //chen: is_mcast
+  coap_log(LOG_DEBUG, "-- is_mcast: %d\n", is_mcast);
+  //chen: allow udp brodcast
+  int broadcast_enable=1;
+  int ret=setsockopt(sock->fd, SOL_SOCKET, SO_BROADCAST, &broadcast_enable, sizeof(broadcast_enable));
+  coap_log(LOG_DEBUG, "-- socket enable broadcast: %d\n", ret);
+
+
   if (connect(sock->fd, &connect_addr.addr.sa, connect_addr.size) == COAP_SOCKET_ERROR) {
     coap_log(LOG_WARNING, "coap_socket_connect_udp: connect: %s\n",
              coap_socket_strerror());
