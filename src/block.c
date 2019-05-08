@@ -248,7 +248,7 @@ coap_add_data_blocked_response(coap_resource_t *resource,
     /* set initial block size, will be lowered by
      * coap_write_block_opt) automatically */
     block2.num = 0;
-    block2.szx = 6;
+    block2.szx = COAP_MAX_BLOCK_SZX;
     coap_write_block_opt(&block2, COAP_OPTION_BLOCK2, response,
                          length);
 
